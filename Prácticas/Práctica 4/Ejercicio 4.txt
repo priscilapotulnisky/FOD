@@ -1,0 +1,25 @@
+//--------------- a --------------- 
+
+PosicionarYLeerNodo(); 
+Lee un nodo en la posición NRR del archivo "a"
+Parámetros: 
+Por referencia - A, nodo
+Por valor - NRR
+
+//--------------- b --------------- 
+
+claveEncontrada();
+Busca "clave" en los elementos de "nodo", si la encuentra retorna
+la posicion de la clave en el array de elementos, y true en "clave encontrada"
+Parámetros:
+Por referencia - a, pos, clave_encontrada
+Por valor - nodo, clave
+
+//--------------- c --------------- 
+
+Hay varios errores de sintaxis. Variables no declaradas, y tipos de 
+datos no especificados
+
+//--------------- d ---------------
+
+Se requiere que la búsqueda termine al llegar a una hoja

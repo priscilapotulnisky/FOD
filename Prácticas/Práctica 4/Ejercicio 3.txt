@@ -1,0 +1,64 @@
+//--------------- a --------------- 
+
+Nodos internos: Contienen solo claves que actúan como separadores para dirigir 
+la búsqueda hacia las hojas correctas. No almacenan datos completos, solo las claves y los punteros hacia sus hijos.
+
+Nodos hojas: Contienen las claves y los punteros a los registros del archivo de datos (en este caso, los registros de los alumnos).
+Además, las hojas están enlazadas entre sí mediante punteros para permitir un recorrido secuencial rápido.
+//--------------- b --------------- 
+
+Los nodos hojas de un árbol B+ tienen la característica distintiva de estar enlazados 
+secuencialmente mediante punteros. Esto significa que cada nodo hoja tiene un puntero 
+al siguiente nodo hoja, facilitando el recorrido secuencial de los datos.
+
+//--------------- c ---------------
+
+const
+  orden = ?;
+type
+  alumno = record
+    nombre: string;
+    apellido: string;
+    dni: integer;
+    legajo: integer;
+    ingreso: integer;
+  end;
+  
+  archivo = file of alumno;
+  
+  lista = ^nodo;
+  nodo = record
+    hijos: array [1..orden] of integer;
+    claves: array [1..(orden-1)] of integer;
+    enlaces: array [1..(orden-1)] of integer;
+    sig: lista;
+  end;
+  
+  indices = file of nodo;
+  
+  
+//--------------- d ---------------
+
+Para buscar un alumno con un DNI específico usando el índice organizado como un árbol B+, se sigue el siguiente proceso:
+
+1- Comenzar en la raíz: Iniciar la búsqueda desde el nodo raíz.
+2- Recorrer nodos internos: En cada nodo interno, comparar el DNI buscado con las claves del nodo para
+determinar hacia cuál de los hijos debe dirigirse la búsqueda.
+3- Alcanzar una hoja: Continuar este proceso hasta llegar a un nodo hoja.
+4- Buscar en la hoja: En el nodo hoja, buscar la clave específica. Si la encuentra,
+se sigue el puntero correspondiente al registro del archivo de datos.
+La diferencia principal respecto a un árbol B es que, en un árbol B+,
+todas las claves y punteros a los registros de datos están en los nodos hoja.
+Esto significa que todos los datos están en las hojas y los nodos internos solo facilitan la búsqueda.
+
+//--------------- e ---------------
+
+1- Buscar el primer valor en el rango: Iniciar la búsqueda para encontrar el primer valor en el rango (40000000) 
+de la misma manera que se buscaría un único DNI.
+2- Recorrer secuencialmente: Una vez encontrado el primer nodo hoja que contiene una clave dentro del rango, 
+recorrer secuencialmente los nodos hoja usando los punteros enlazados.
+3- Recolectar resultados: Continuar recogiendo las claves y registros asociados mientras las claves sigan
+estando dentro del rango (hasta 45000000).
+La ventaja principal de este enfoque sobre un árbol B es que, gracias a los punteros secuenciales entre los nodos hoja, 
+el recorrido secuencial es mucho más eficiente y rápido. En un árbol B tradicional, sería necesario realizar una búsqueda individual 
+para cada clave en el rango, lo que sería mucho más costoso en términos de tiempo.

@@ -1,0 +1,69 @@
+//------------------------ a --------------------------------------
+
+program ejercicio;
+const
+  M = ?; //orden 
+type
+  alumno = record
+    nomYap: string;
+    dni: integer;
+    legajo: integer;
+    ingreso: integer;
+  end;
+  
+  nodo = record
+    hijos: array [1..M] of integer; //NRRs
+    claves: array[1.. (M-1)] of alumno; //elementos
+    nroRegistros: integer; //cantidad de datos
+  end;
+  
+  archivo = file of nodo;
+  
+  
+///------------------------ b --------------------------------------
+
+N = (M - 1) * A + M * B + C
+
+N: tamaño del nodo en bytes.
+A: tamaño de un registro en bytes
+B: tamaño de cada enlace a un hijo 
+C: tamaño que ocupa el campo referido a la cantidad de claves
+
+obtener M. (orden del árbol) y ver cuantos registros entran.
+
+512 = (M - 1) * 64 + M * 4 + 4 (aplico distributiva)
+512 = 64M - 64 + 4M + 4
+512 = 64M + 4M - 64 + 4
+512 = 68M - 60
+68M = 512 + 60
+68M = 572
+M = 572/68
+M = 8.4
+
+El orden es 8, por lo tanto la cantidad de nodos que entran en cada campo son 7.
+
+
+//------------------------ c --------------------------------------
+
+Va a impactar en la estructura del árbol B: en la cantidad máxima de elementos que contendrá un nodo y la altura del árbol
+
+
+//------------------------ d --------------------------------------
+
+El dato que utilizaría como clave seria el legajo. O también como segunda opción se podría usar el DNI.
+
+//------------------------ e --------------------------------------
+
+El proceso de búsqueda de un alumno sería por legajo. Entonces tenemos que ir recorriendo el árbol 
+hasta que el numero de legajo sea igual o mayor. Cuando el numero de legajo actual es igual, entonces dejamos de recorrer
+porque ya lo encontramos y si el numero de legajo actual es mayor al que buscamos entonces también debemos dejar de buscar
+porque eso quiere decir que el elemento buscado no existe en el árbol. Respecto a la cantidad de lecturas de nodos,
+en el mejor de los casos seria una lectura ya que el mejor caso seria que el elemento a buscar se encuentre en la raíz
+del árbol, y en el peor de los casos seria 1Lectura*altura del árbol ya que el peor de los casos es que el elemento se 
+encuentre en los nodos terminales.
+
+//------------------------ f --------------------------------------
+
+Si buscamos un alumno por un criterio diferente estaríamos desaprovechando el ordenamiento ya definido,
+y deberíamos recorrer todo el árbol en el peor de los casos. Por lo tanto la cantidad de lecturas 
+necesarias en el peor de los casos seria n. n = cantidad de nodos del árbol.

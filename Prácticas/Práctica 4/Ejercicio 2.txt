@@ -1,0 +1,69 @@
+//------------------------ a --------------------------------------
+
+program ejercicio;
+const
+  M = ?; //orden 
+type
+  alumno = record
+    nomYap: string;
+    dni: integer;
+    legajo: integer;
+    ingreso: integer;
+  end;
+
+  archivoAlumno = file of alumno;
+  
+  nodo = record
+    cant: integer;
+    claves: array[1..(M-1)] of integer;
+    enlaces: array[1..(M-1)] of integer;
+    hijos: array[1..M] of integer;
+  end;
+  
+  indices = file of nodo;
+
+//------------------------ b --------------------------------------
+
+N = (M - 1) * A + (M - 1) * A + M * B + C
+
+N: tamaño del nodo en bytes
+A: tamaño de un integer.
+B: tamaño de cada enlace a un hijo.
+C: tamaño que ocupa el campo referido a la cantidad de claves
+
+512 = (M - 1) * 4 + (M - 1) * 4 + M * 4 + 4
+512 = 4M - 4 + 4M - 4 + 4M + 4
+512 = 12M - 4 
+512 + 4 = 12M
+516 = 12M
+516/12 = M
+M = 43
+
+Entonces, el orden del árbol es 43 y la cantidad de elementos por nodo será de 42
+//------------------------ c --------------------------------------
+
+ Lo que implica es que vamos a poder acceder a mas registros con muchas menos lecturas de nodos,
+ ya que en un solo nodo tenemos 42 índices a registros alumnos, y en el árbol del ejercicio 1 en
+ un nodo solo teníamos 7 registros alumnos, por o que en cada búsqueda estaríamos realizando
+ mas lecturas para encontrar un alumno.
+ Un mayor M significa que cada nodo puede contener más claves y enlaces a hijos, lo que reduce la altura del árbol
+ y mejora el rendimiento de las búsquedas y actualizaciones. Esto hace que el índice sea más eficiente comparado con un árbol B de menor orden.
+
+//------------------------ d --------------------------------------
+
+Deberíamos comenzar en la raíz del árbol índice, comparar el dni con las claves en el nodo actual. Si la clave esta en el nodo, usar el enlace
+al archivo de datos para acceder al registro del alumno, si la clave es menor que una clave del nodo nos movemos al hijo izquierdo correspondiente. Si la llave es mayor
+nos movemos al hijo derecho y repetimos hasta encontrar la llave o llegar a un nodo mayor o menor al buscado, ahí también se cortara la búsqueda.
+
+
+//------------------------ e --------------------------------------
+
+Buscar por numero de legajo en el índice basado en el dni no tiene sentido. Para tener un acceso indizado por numero de legajo, se necesitaría
+mantener un segundo índice estructurado como un árbol b en el numero de legajo.
+
+
+//------------------------ f --------------------------------------
+
+Buscar alumnos con dni en ese rango en un arbol b que solo tiene acceso indizado por dni puede ser ineficiente porque requiere recorrer
+y verificar multiples nodos para encontrar todos los valores dentro del rango. Un índice adicional o una estructura de datos que soporte
+busquedas de rango de forma eficiente seria necesaria para mejorar esta operación.
